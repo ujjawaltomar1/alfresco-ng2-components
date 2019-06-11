@@ -28,6 +28,43 @@ export class TaskFormCloudComponent {
     saveButton = element(by.css('button[id="adf-form-save"]'));
     claimButton = element(by.css('button[adf-cloud-claim-task]'));
     form = element(by.css('adf-cloud-form'));
+    readOnlyForm = element(by.css('div[class="adf-readonly-form"]'));
+    spinner = element(by.css('adf-cloud-task-form mat-spinner'));
+
+    checkCancelButtonIsDisplayed() {
+        BrowserVisibility.waitUntilElementIsVisible(this.cancelButton);
+        return this;
+    }
+
+    checkFormIsReadOnly() {
+        BrowserVisibility.waitUntilElementIsVisible(this.readOnlyForm);
+        return this;
+    }
+
+    checkFormIsNotReadOnly() {
+        BrowserVisibility.waitUntilElementIsNotVisible(this.readOnlyForm);
+        return this;
+    }
+
+    checkReleaseButtonIsDisplayed() {
+        BrowserVisibility.waitUntilElementIsVisible(this.releaseButton);
+        return this;
+    }
+
+    checkReleaseButtonIsNotDisplayed() {
+        BrowserVisibility.waitUntilElementIsNotVisible(this.releaseButton);
+        return this;
+    }
+
+    checkClaimButtonIsDisplayed() {
+        BrowserVisibility.waitUntilElementIsVisible(this.claimButton);
+        return this;
+    }
+
+    checkClaimButtonIsNotDisplayed() {
+        BrowserVisibility.waitUntilElementIsNotVisible(this.claimButton);
+        return this;
+    }
 
     checkCompleteButtonIsDisplayed() {
         BrowserVisibility.waitUntilElementIsVisible(this.completeButton);

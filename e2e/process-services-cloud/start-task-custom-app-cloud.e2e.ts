@@ -115,7 +115,7 @@ describe('Start Task', () => {
         tasksCloudDemoPage.taskListCloudComponent().getDataTable().waitForTableBody();
         tasksCloudDemoPage.taskListCloudComponent().checkContentIsDisplayedByName(unassignedTaskName);
         const taskId = tasksCloudDemoPage.taskListCloudComponent().getIdCellValue(unassignedTaskName);
-        tasksCloudDemoPage.taskListCloudComponent().selectRow(unassignedTaskName);
+        tasksCloudDemoPage.taskListCloudComponent().selectRowByName(unassignedTaskName);
         taskHeaderCloudPage.checkTaskPropertyListIsDisplayed();
         expect(taskHeaderCloudPage.getId()).toBe(taskId);
         expect(taskHeaderCloudPage.getAssignee()).toBe('No assignee');
@@ -216,7 +216,7 @@ describe('Start Task', () => {
             .clearAssignee()
             .setStatusFilterDropDown('ALL');
         tasksCloudDemoPage.taskListCloudComponent().checkContentIsDisplayedByName(reassignTaskName);
-        tasksCloudDemoPage.taskListCloudComponent().selectRow(reassignTaskName);
+        tasksCloudDemoPage.taskListCloudComponent().selectRowByName(reassignTaskName);
         expect(taskHeaderCloudPage.getAssignee()).toBe(apsUser.username);
     });
 

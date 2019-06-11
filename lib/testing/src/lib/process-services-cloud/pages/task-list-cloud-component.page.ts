@@ -75,7 +75,7 @@ export class TaskListCloudComponentPage {
         return this.dataTable.selectRowWithKeyboard(column.name, taskName);
     }
 
-    selectRow(taskName) {
+    selectRowByName(taskName) {
         return this.dataTable.selectRow(column.name, taskName);
     }
 

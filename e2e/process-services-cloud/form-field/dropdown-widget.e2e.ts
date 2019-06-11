@@ -100,7 +100,7 @@ describe('Form Field Component - Dropdown Widget', () => {
     it('[C290069] Should be able to read rest service dropdown options, save and complete the task form', async () => {
         tasksCloudDemoPage.myTasksFilter().clickTaskFilter();
         tasksCloudDemoPage.taskListCloudComponent().checkContentIsDisplayedByName(task.entry.name);
-        tasksCloudDemoPage.taskListCloudComponent().selectRow(task.entry.name);
+        tasksCloudDemoPage.taskListCloudComponent().selectRowByName(task.entry.name);
         taskHeaderCloudPage.checkTaskPropertyListIsDisplayed();
         taskFormCloudComponent.formFields().checkFormIsDisplayed();
         taskFormCloudComponent.formFields().checkWidgetIsVisible('Dropdown097maj');
@@ -115,7 +115,7 @@ describe('Form Field Component - Dropdown Widget', () => {
 
         tasksCloudDemoPage.completedTasksFilter().clickTaskFilter();
         tasksCloudDemoPage.taskListCloudComponent().checkContentIsDisplayedByName(task.entry.name);
-        tasksCloudDemoPage.taskListCloudComponent().selectRow(task.entry.name);
+        tasksCloudDemoPage.taskListCloudComponent().selectRowByName(task.entry.name);
         taskFormCloudComponent.formFields().checkFormIsDisplayed();
         taskFormCloudComponent.formFields().checkWidgetIsVisible('Dropdown097maj');
         expect(dropdown.getSelectedOptionText('Dropdown097maj')).toBe('Clementine Bauch');

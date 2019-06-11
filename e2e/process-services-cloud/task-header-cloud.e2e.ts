@@ -109,7 +109,7 @@ describe('Task Header cloud component', () => {
     it('[C291943] Should display task details for assigned task', () => {
         tasksCloudDemoPage.myTasksFilter().clickTaskFilter();
         tasksCloudDemoPage.taskListCloudComponent().checkContentIsDisplayedByName(basicCreatedTaskName);
-        tasksCloudDemoPage.taskListCloudComponent().selectRow(basicCreatedTaskName);
+        tasksCloudDemoPage.taskListCloudComponent().selectRowByName(basicCreatedTaskName);
         expect(taskHeaderCloudPage.getId()).toEqual(basicCreatedTask.entry.id);
         expect(taskHeaderCloudPage.getDescription())
             .toEqual(basicCreatedTask.entry.description === null ? CONSTANTS.TASK_DETAILS.NO_DESCRIPTION : basicCreatedTask.entry.description);
@@ -131,7 +131,7 @@ describe('Task Header cloud component', () => {
         tasksCloudDemoPage.myTasksFilter().clickTaskFilter();
         tasksCloudDemoPage.completedTasksFilter().clickTaskFilter();
         tasksCloudDemoPage.taskListCloudComponent().checkContentIsDisplayedByName(completedTaskName);
-        tasksCloudDemoPage.taskListCloudComponent().selectRow(completedTaskName);
+        tasksCloudDemoPage.taskListCloudComponent().selectRowByName(completedTaskName);
         expect(taskHeaderCloudPage.getId()).toEqual(completedTask.entry.id);
         expect(taskHeaderCloudPage.getDescription())
             .toEqual(completedTask.entry.description === null ? CONSTANTS.TASK_DETAILS.NO_DESCRIPTION : completedTask.entry.description);
@@ -152,7 +152,7 @@ describe('Task Header cloud component', () => {
     it('[C291945] Should Parent Name and Parent Id not be empty in task details for sub task', () => {
         tasksCloudDemoPage.myTasksFilter().clickTaskFilter();
         tasksCloudDemoPage.taskListCloudComponent().checkContentIsDisplayedByName(subTask.entry.name);
-        tasksCloudDemoPage.taskListCloudComponent().selectRow(subTask.entry.name);
+        tasksCloudDemoPage.taskListCloudComponent().selectRowByName(subTask.entry.name);
         expect(taskHeaderCloudPage.getId()).toEqual(subTask.entry.id);
         expect(taskHeaderCloudPage.getDescription())
             .toEqual(subTask.entry.description === null ? CONSTANTS.TASK_DETAILS.NO_DESCRIPTION : subTask.entry.description);
@@ -186,7 +186,7 @@ describe('Task Header cloud component', () => {
             tasksCloudDemoPage.myTasksFilter().clickTaskFilter();
             tasksCloudDemoPage.completedTasksFilter().clickTaskFilter();
             tasksCloudDemoPage.taskListCloudComponent().checkContentIsDisplayedByName(completedTaskName);
-            tasksCloudDemoPage.taskListCloudComponent().selectRow(completedTaskName);
+            tasksCloudDemoPage.taskListCloudComponent().selectRowByName(completedTaskName);
             taskHeaderCloudPage.checkTaskPropertyListIsDisplayed();
             expect(taskHeaderCloudPage.getCreated()).toEqual(defaultDate);
         });

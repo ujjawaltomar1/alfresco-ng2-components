@@ -94,7 +94,7 @@ describe('Task list cloud - selection', () => {
             tasksCloudDemoPage.taskListCloudComponent().getDataTable().waitForTableBody();
 
             tasksCloudDemoPage.taskListCloudComponent().checkContentIsDisplayedByName(tasks[0]);
-            tasksCloudDemoPage.taskListCloudComponent().selectRow(tasks[0]);
+            tasksCloudDemoPage.taskListCloudComponent().selectRowByName(tasks[0]);
             tasksCloudDemoPage.taskListCloudComponent().getDataTable().checkNoRowIsSelected();
         });
 
@@ -105,12 +105,12 @@ describe('Task list cloud - selection', () => {
             tasksCloudDemoPage.taskListCloudComponent().getDataTable().waitForTableBody();
 
             tasksCloudDemoPage.taskListCloudComponent().checkContentIsDisplayedByName(tasks[0]);
-            tasksCloudDemoPage.taskListCloudComponent().selectRow(tasks[0]);
+            tasksCloudDemoPage.taskListCloudComponent().selectRowByName(tasks[0]);
             tasksCloudDemoPage.taskListCloudComponent().checkRowIsSelected(tasks[0]);
             expect(tasksCloudDemoPage.taskListCloudComponent().getDataTable().getNumberOfSelectedRows()).toEqual(1);
 
             tasksCloudDemoPage.taskListCloudComponent().checkContentIsDisplayedByName(tasks[1]);
-            tasksCloudDemoPage.taskListCloudComponent().selectRow(tasks[1]);
+            tasksCloudDemoPage.taskListCloudComponent().selectRowByName(tasks[1]);
             tasksCloudDemoPage.taskListCloudComponent().checkRowIsSelected(tasks[1]);
             expect(tasksCloudDemoPage.taskListCloudComponent().getDataTable().getNumberOfSelectedRows()).toEqual(1);
         });
@@ -122,7 +122,7 @@ describe('Task list cloud - selection', () => {
             tasksCloudDemoPage.taskListCloudComponent().getDataTable().waitForTableBody();
 
             tasksCloudDemoPage.taskListCloudComponent().checkContentIsDisplayedByName(tasks[0]);
-            tasksCloudDemoPage.taskListCloudComponent().selectRow(tasks[0]);
+            tasksCloudDemoPage.taskListCloudComponent().selectRowByName(tasks[0]);
             tasksCloudDemoPage.taskListCloudComponent().checkRowIsSelected(tasks[0]);
 
             tasksCloudDemoPage.taskListCloudComponent().checkContentIsDisplayedByName(tasks[1]);
