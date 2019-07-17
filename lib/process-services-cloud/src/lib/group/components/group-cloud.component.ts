@@ -25,13 +25,14 @@ import {
     ViewEncapsulation,
     Input,
     SimpleChanges,
-    OnChanges
+    OnChanges,
+    OnDestroy
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, of, BehaviorSubject, Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
-import { distinctUntilChanged, switchMap, mergeMap, filter, tap, map } from 'rxjs/operators';
+import { distinctUntilChanged, switchMap, mergeMap, filter, tap, map, takeUntil } from 'rxjs/operators';
 import { IdentityGroupModel, IdentityGroupSearchParam, IdentityGroupService } from '@alfresco/adf-core';
 
 @Component({
@@ -49,7 +50,7 @@ import { IdentityGroupModel, IdentityGroupSearchParam, IdentityGroupService } fr
     ],
     encapsulation: ViewEncapsulation.None
 })
-export class GroupCloudComponent implements OnInit, OnChanges {
+export class GroupCloudComponent implements OnInit, OnChanges, OnDestroy {
 
     static MODE_SINGLE = 'single';
     static MODE_MULTIPLE = 'multiple';
@@ -80,11 +81,11 @@ export class GroupCloudComponent implements OnInit, OnChanges {
 
     /** Emitted when a group is selected. */
     @Output()
-    selectGroup: EventEmitter<IdentityGroupModel> = new EventEmitter<IdentityGroupModel>();
+    selectGroup = new EventEmitter<IdentityGroupModel>();
 
     /** Emitted when a group is removed. */
     @Output()
-    removeGroup: EventEmitter<IdentityGroupModel> = new EventEmitter<IdentityGroupModel>();
+    removeGroup = new EventEmitter<IdentityGroupModel>();
 
     @ViewChild('groupInput')
     private groupInput: ElementRef<HTMLInputElement>;
@@ -93,9 +94,9 @@ export class GroupCloudComponent implements OnInit, OnChanges {
 
     private searchGroups: IdentityGroupModel[] = [];
 
-    private searchGroupsSubject: BehaviorSubject<IdentityGroupModel[]>;
+    searchGroupsSubject = new BehaviorSubject<IdentityGroupModel[]>([]);
 
-    private selectedGroupsSubject: BehaviorSubject<IdentityGroupModel[]>;
+    selectedGroupsSubject = new BehaviorSubject<IdentityGroupModel[]>([]);
 
     searchGroups$: Observable<IdentityGroupModel[]>;
 
@@ -111,9 +112,9 @@ export class GroupCloudComponent implements OnInit, OnChanges {
 
     isDisabled: boolean;
 
+    private onDestroy$ = new Subject<boolean>();
+
     constructor(private identityGroupService: IdentityGroupService) {
-        this.selectedGroupsSubject = new BehaviorSubject<IdentityGroupModel[]>(this.selectedGroups);
-        this.searchGroupsSubject = new BehaviorSubject<IdentityGroupModel[]>(this.searchGroups);
         this.selectedGroups$ = this.selectedGroupsSubject.asObservable();
         this.searchGroups$ = this.searchGroupsSubject.asObservable();
     }
@@ -135,7 +136,7 @@ export class GroupCloudComponent implements OnInit, OnChanges {
         }
     }
 
-    private isAppNameChanged(change) {
+    private isAppNameChanged(change): boolean {
         return change.previousValue !== change.currentValue && this.appName && this.appName.length > 0;
     }
 
@@ -184,8 +185,9 @@ export class GroupCloudComponent implements OnInit, OnChanges {
                 } else {
                     return of(group);
                 }
-            })
-        ).subscribe((searchedGroup) => {
+            }),
+            takeUntil(this.onDestroy$)
+        ).subscribe((searchedGroup: any) => {
             this.searchGroups.push(searchedGroup);
             this.searchGroupsSubject.next(this.searchGroups);
         });
@@ -308,5 +310,10 @@ export class GroupCloudComponent implements OnInit, OnChanges {
 
     hasErrorMessage(): boolean {
         return !this.isFocused && this.hasError();
+    }
+
+    ngOnDestroy() {
+        this.onDestroy$.next(true);
+        this.onDestroy$.complete();
     }
 }
