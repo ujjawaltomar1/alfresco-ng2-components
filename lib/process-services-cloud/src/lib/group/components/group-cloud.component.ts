@@ -112,6 +112,8 @@ export class GroupCloudComponent implements OnInit, OnChanges {
 
     isDisabled: boolean;
 
+    currentTimeout: any;
+
     constructor(private groupService: GroupCloudService) {
         this.selectedGroupsSubject = new BehaviorSubject<GroupModel[]>(this.selectedGroups);
         this.searchGroupsSubject = new BehaviorSubject<GroupModel[]>(this.searchGroups);
@@ -221,7 +223,12 @@ export class GroupCloudComponent implements OnInit, OnChanges {
             this.selectedGroups = [...groups];
             this.selectedGroupsSubject.next(this.selectedGroups);
         } else {
-            setTimeout(() => {
+
+            if (this.currentTimeout) {
+                clearTimeout(this.currentTimeout);
+            }
+
+            this.currentTimeout = setTimeout(() => {
                 this.searchGroupsControl.setValue(this.preSelectGroups[0]);
                 this.onSelect(this.preSelectGroups[0]);
             }, 0);
